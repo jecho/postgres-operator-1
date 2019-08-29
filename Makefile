@@ -17,9 +17,9 @@ TAG ?= $(VERSION)
 GITHEAD = $(shell git rev-parse --short HEAD)
 GITURL = $(shell git config --get remote.origin.url)
 GITSTATUS = $(shell git status --porcelain || echo "no changes")
-SOURCES = cmd/main.go
+SOURCES = main.go
 VERSION ?= $(shell git describe --tags --always --dirty)
-DIRS := cmd pkg
+DIRS := pkg
 PKG := `go list ./... | grep -v /vendor/`
 
 ifeq ($(DEBUG),1)
@@ -79,6 +79,7 @@ scm-source.json: .git
 
 tools:
 	@go get -u honnef.co/go/tools/cmd/staticcheck
+	@go get k8s.io/client-go@kubernetes-1.16.0
 
 fmt:
 	@gofmt -l -w -s $(DIRS)
@@ -88,7 +89,7 @@ vet:
 	@staticcheck $(PKG)
 
 deps:
-	@go mod vendor
+	GO111MODULE=on go mod vendor
 
 test:
 	hack/verify-codegen.sh

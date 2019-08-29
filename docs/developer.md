@@ -27,20 +27,15 @@ git clone https://github.com/zalando/postgres-operator.git
 
 ## Building the operator
 
-You need Glide to fetch all dependencies. Install it with:
-
-```bash
-make tools
-```
-
-Next, install dependencies with glide by issuing:
+We use [Go Modules](https://github.com/golang/go/wiki/Modules) for handling
+dependencies. Install them with:
 
 ```bash
 make deps
 ```
 
 This would take a while to complete. You have to redo `make deps` every time
-you dependencies list changes, i.e. after adding a new library dependency.
+your dependencies list changes, i.e. after adding a new library dependency.
 
 Build the operator with the `make docker` command. You may define the TAG
 variable to assign an explicit tag to your docker image and the IMAGE to set
