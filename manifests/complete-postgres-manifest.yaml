@@ -1,7 +1,7 @@
 apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
-  name: acid-test-cluster
+  name: acid-test-cluster-4
 #  labels:
 #    environment: demo
 spec:
@@ -62,6 +62,8 @@ spec:
     loop_wait: &loop_wait 10
     retry_timeout: 10
     maximum_lag_on_failover: 33554432
+    synchronous_mode: "on"
+    synchronous_mode_strict: ""
 # restore a Postgres DB with point-in-time-recovery
 # with a non-empty timestamp, clone from an S3 bucket using the latest backup before the timestamp
 # with an empty/absent timestamp, clone from an existing alive cluster using pg_basebackup

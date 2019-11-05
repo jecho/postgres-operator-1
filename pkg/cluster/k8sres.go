@@ -45,6 +45,10 @@ type patroniDCS struct {
 	MaximumLagOnFailover     float32                      `json:"maximum_lag_on_failover,omitempty"`
 	PGBootstrapConfiguration map[string]interface{}       `json:"postgresql,omitempty"`
 	Slots                    map[string]map[string]string `json:"slots,omitempty"`
+	SynchronousCommit        string                       `json:"synchronous_commit"`
+	SynchronousStandbyNames  string                       `json:"synchronous_standby_names"`
+	SynchronousMode          string                       `json:"synchronous_mode"`
+	SynchronousModeStrict    string                       `json:"synchronous_mode_strict"`
 }
 
 type pgBootstrap struct {
@@ -221,6 +225,18 @@ PatroniInitDBParams:
 	}
 	if patroni.Slots != nil {
 		config.Bootstrap.DCS.Slots = patroni.Slots
+	}
+	if patroni.SynchronousCommit != "" {
+		config.Bootstrap.DCS.SynchronousCommit = patroni.SynchronousCommit
+	}
+	if patroni.SynchronousStandbyNames != "" {
+		config.Bootstrap.DCS.SynchronousStandbyNames = patroni.SynchronousStandbyNames
+	}
+	if patroni.SynchronousMode != "" {
+		config.Bootstrap.DCS.SynchronousMode = patroni.SynchronousMode
+	}
+	if patroni.SynchronousModeStrict != "" {
+		config.Bootstrap.DCS.SynchronousModeStrict = patroni.SynchronousModeStrict
 	}
 
 	config.PgLocalConfiguration = make(map[string]interface{})
